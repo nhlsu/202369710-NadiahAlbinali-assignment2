@@ -100,19 +100,6 @@ small parts for me to fill in, and explain each change so I could document it.
 | Save button looked "off" | I noticed it visually; Claude explained that `<button>` elements don't inherit fonts. | Added `font: inherit` to `.btn`. |
 | Footer year would break | Claude reviewed my pasted JavaScript and found a misplaced `}` that nested `initFooterYear()` inside another function. | Moved the closing brace. |
 
-## Usage Log
-
-| ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
-|----|--------------|------|---------|----------------|------------------------------------------|
-| C01 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | Full Assignment 2 session: planning, code suggestions, debugging, documentation | All files below | Worked step by step, filling in parts of the code myself; full conversation in `conversations/` |
-| A01 | Claude (Opus 5.5) | 2026-10-19 | Name form HTML in the hero section | `index.html` | Filled in `novalidate` and the placeholder; later renamed the error id to `visitor-name-error` to fix a duplicate-id bug. Verified by testing both forms in Chrome. |
-| A02 | Claude (Opus 5.5) | 2026-10-19 | Personalized greeting and `localStorage` name logic | `js/script.js` | Updated the error id after the duplicate-id bug. Verified by saving, reloading, and changing the name in Chrome. |
-| A03 | Claude (Opus 5.5) | 2026-10-19 | Name form styles and fade-in animation | `css/styles.css` | Filled in `display: none`, the error color, and the `8px` offset; added `font: inherit` to `.btn`; restored hero/button rules my paste had overwritten. Verified visually in light and dark mode. |
-| A04 | Claude (Opus 5.5) | 2026-10-19 | Contact form validation messages | `js/script.js` | Filled in the `input` event and wrote my own success message; fixed a misplaced `}`. Verified empty, invalid, and valid submissions in Chrome. |
-| A05 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | README update | `README.md` | Filled in the assignment name; asked for the criteria table; fixed duplicated sections after pasting. Checked how it renders on GitHub. |
-| A06 | Claude (Opus 5.5) | 2026-10-19 | Technical documentation | `docs/technical-documentation.md` | Filled in my testing browser; reviewed against my code. |
-| A07 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | AI usage report and this log | `docs/ai-usage-report.md` | Added the declaration; checked every statement against what I actually did. |
-
 ## Benefits & Challenges
 
 **Benefits:**
@@ -156,6 +143,20 @@ small parts for me to fill in, and explain each change so I could document it.
   `Assisted-by: Claude` line.
 - Prompts and screenshots from this assignment are kept in a separate AI
   evidence folder outside the repository.
+## Usage Log
+
+| ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
+|----|--------------|------|---------|----------------|------------------------------------------|
+| C01 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | Full Assignment 2 session: planning, code suggestions, debugging, documentation | All files below | Worked step by step, filling in parts of the code myself; full conversation in `conversations/` |
+| A01 | Claude (Opus 5.5) | 2026-10-19 | Name form HTML in the hero section | `index.html` | Filled in `novalidate` and the placeholder; later renamed the error id to `visitor-name-error` to fix a duplicate-id bug. Verified by testing both forms in Chrome. |
+| A02 | Claude (Opus 5.5) | 2026-10-19 | Personalized greeting and `localStorage` name logic | `js/script.js` | Updated the error id after the duplicate-id bug. Verified by saving, reloading, and changing the name in Chrome. |
+| A03 | Claude (Opus 5.5) | 2026-10-19 | Name form styles and fade-in animation | `css/styles.css` | Filled in `display: none`, the error color, and the `8px` offset; added `font: inherit` to `.btn`; restored hero/button rules my paste had overwritten. Verified visually in light and dark mode. |
+| A04 | Claude (Opus 5.5) | 2026-10-19 | Contact form validation messages | `js/script.js` | Filled in the `input` event and wrote my own success message; fixed a misplaced `}`. Verified empty, invalid, and valid submissions in Chrome. |
+| A05 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | README update (first version and criteria-table version) | `README.md` | Filled in the assignment name; asked for each feature to be labeled with its criterion. Checked how it renders on GitHub. |
+| A06 | Claude (Opus 5.5) | 2026-10-19 | Technical documentation | `docs/technical-documentation.md` | Filled in my testing browser; reviewed against my code. |
+| A07 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | AI usage report and this log | `docs/ai-usage-report.md` | Added the declaration; checked every statement against what I actually did. |
+| A08 | Claude (Opus 5.5) | 2026-10-20 | Readable chat transcript (prompts word for word, replies summarized) | None (evidence only) | Used only as a readable extra; the full unedited conversation is the export in `conversations/`. |
+| A09 | Claude (Opus 5.5) | 2026-10-20 | Final complete README, after my pasted version had duplicated sections | `README.md` | Replaced the README with the complete version; checked the table and sections render correctly on GitHub. |
 
 ## Declaration
 

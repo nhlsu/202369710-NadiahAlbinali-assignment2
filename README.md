@@ -1,10 +1,26 @@
 # Nadiah Albinali — Personal Portfolio (Assignment 2)
+
 A simple, responsive personal portfolio site, built in Assignment 1 and
-extended in Assignment 2 (*Interactive Features*) with personalization, clearer form
-feedback, and animation.
+extended in Assignment 2 (*Interactive Features*) with personalization,
+clearer form feedback, and animation.
+
 ## Project Description
 
-This is a single-page portfolio with 4 core sections:
+This is a single-page portfolio with four core sections:
+
+- **About Me** — a short intro and quick facts about me.
+- **Projects** — cards for coursework and portfolio projects: a data science
+  project on factors affecting study performance, a CPU design (COE 301), a
+  traffic light controller (COE 203), a Football Analytics Dashboard
+  (pending), and a computer-vision project in progress.
+- **Experience** — cards summarizing my roles across student
+  organizations and activities.
+- **Contact** — a client-side-only form (Name, Email, Message) with
+  validation and no backend.
+
+It's built with plain **HTML, CSS, and JavaScript** — no frameworks — and is
+fully responsive across desktop, tablet, and mobile.
+
 ### Interactive features (JavaScript)
 
 - **Dark / light theme toggle**, saved to `localStorage` so it persists
@@ -17,35 +33,19 @@ This is a single-page portfolio with 4 core sections:
 
 ### New in Assignment 2
 
-- **Name form for first-time visitors** — asks "What's your name?" and
-  saves the answer to `localStorage` (key: `visitorName`). After saving,
-  the form hides and a "Not you? Change name" option appears.
-- **Clearer error messages** — every field now has separate messages for
-  *empty* and *invalid* input, errors clear as soon as the visitor starts
-  fixing a field, and the cursor jumps to the first field with a problem.
-- **Friendlier success message** on the contact form, which makes clear
-  that no backend is connected yet.
-- **Fade-in animation** on the greeting, error messages, and success
-  message. It is turned off automatically for visitors who prefer reduced
-  motion (`prefers-reduced-motion`).
-
-It's built with plain **HTML, CSS, and JavaScript** — no frameworks — and is
-fully responsive across desktop, tablet, and mobile.
-
-### Interactive features (JavaScript)
-
-- **Dark / light theme toggle**, saved to `localStorage` so it persists
-  between visits.
-- **Time-of-day greeting** above the hero heading (morning/afternoon/
-  evening/night, based on the visitor's local time).
-- **Mobile navigation menu** with a hamburger toggle.
-- **Contact form validation** (name length, email format, message length)
-  with inline error messages — no backend required.
-- Smooth scrolling to sections via anchor links.
+| Criterion | Feature | Where to find it | How to check |
+|---|---|---|---|
+| **Dynamic content** | Personalized greeting — time-of-day greeting that includes the visitor's name | `index.html` (`#greeting`), `js/script.js` → `renderGreeting()` | Save a name; the greeting updates to "Good evening, Name!" |
+| **Data handling / localStorage** | Name saved under the key `visitorName`; form shown only to first-time visitors, with a "Not you? Change name" option | `js/script.js` → `initNameForm()` | Save a name, reload — it's remembered. Click "Change name" to clear it. |
+| **Error handling** | Separate messages for *empty* and *invalid* input; errors clear while typing; cursor jumps to the first problem field | Name form: `#visitor-name-error`. Contact form: `js/script.js` → `validateField()` | Submit both forms empty, then with invalid values |
+| **User feedback** | Clearer contact-form error messages and a friendlier success message that states no backend is connected | `js/script.js` → `initContactForm()` (the `fields` list) | Submit valid details in the Contact section |
+| **Animation** | Fade-in on the greeting, error messages, and success message; disabled for `prefers-reduced-motion` | `css/styles.css` → `@keyframes fadeIn`, `.fade-in`; `js/script.js` → `playFadeIn()` | Save a name or trigger an error and watch it fade in |
+| **Documentation** | Updated README, technical documentation, and AI usage report | `README.md`, `docs/` | — |
+| **AI integration** | AI usage documented; AI evidence kept outside the repository | `docs/ai-usage-report.md`; evidence submitted separately | — |
 
 ## Folder Structure
 ```
-assignment-2/
+202369710-NadiahAlbinali-assignment2/
 ├── README.md
 ├── index.html
 ├── css/
@@ -67,12 +67,13 @@ No build tools or dependencies are required.
 1. Clone or download this repository.
 2. Open `index.html` directly in your browser, **or** serve it locally for
    the best experience:
-   ```bash
+```bash
    # Python 3
    python3 -m http.server 8000
    # then visit http://localhost:8000
-   ```
+```
 3. That's it — no `npm install`, no build step.
+
 ## How to Test the Assignment 2 Features
 
 1. Open the site. The name form should appear under the greeting.
@@ -89,6 +90,7 @@ To clear saved data manually: DevTools → **Application** → **Local Storage**
 then delete `visitorName` (and `theme`).
 
 ## Deployment (optional)
+
 To deploy for free on **GitHub Pages**:
 
 1. Push this repository to GitHub.

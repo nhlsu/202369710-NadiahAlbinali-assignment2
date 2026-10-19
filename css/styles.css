@@ -203,6 +203,7 @@ h1, h2, h3 {
   display: inline-block;
   padding: 0.75rem 1.6rem;
   border-radius: 999px;
+  font: inherit;
   font-weight: 600;
   transition: transform var(--transition), background var(--transition), color var(--transition);
   cursor: pointer;
@@ -229,6 +230,85 @@ h1, h2, h3 {
   background: var(--color-accent);
   color: #fff;
   transform: translateY(-2px);
+}
+/* ---------- Name form (hero) ---------- */
+.name-form {
+  max-width: 420px;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Make the `hidden` attribute win over the display rules */
+.name-form[hidden],
+.change-name[hidden] {
+  display: none;
+}
+
+.name-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.name-form-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.name-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition);
+}
+
+.name-form input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.name-form input.invalid {
+  border-color: #e0555a;
+}
+
+.change-name {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.change-name:hover,
+.change-name:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ---------- Fade-in animation ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
 }
 
 /* ---------- Sections ---------- */

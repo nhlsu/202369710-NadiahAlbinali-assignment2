@@ -141,8 +141,9 @@ small parts for me to fill in, and explain each change so I could document it.
   AI's own mistake (duplicate `id`) is documented above rather than hidden.
 - Commits that included AI-assisted code are marked with an
   `Assisted-by: Claude` line.
-- Prompts and screenshots from this assignment are kept in a separate AI
-  evidence folder outside the repository.
+  - The full conversation (share link), a readable transcript, and the
+  intermediate AI artifacts are submitted in the AI evidence ZIP on
+  Blackboard, not in this repository.
 ## Usage Log
 
 | ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
@@ -155,7 +156,7 @@ small parts for me to fill in, and explain each change so I could document it.
 | A05 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | README update (first version and criteria-table version) | `README.md` | Filled in the assignment name; asked for each feature to be labeled with its criterion. Checked how it renders on GitHub. |
 | A06 | Claude (Opus 5.5) | 2026-10-19 | Technical documentation | `docs/technical-documentation.md` | Filled in my testing browser; reviewed against my code. |
 | A07 | Claude (Opus 5.5) | 2026-10-19 – 2026-10-20 | AI usage report and this log | `docs/ai-usage-report.md` | Added the declaration; checked every statement against what I actually did. |
-| A08 | Claude (Opus 5.5) | 2026-10-20 | Readable chat transcript (prompts word for word, replies summarized) | None (evidence only) | Used only as a readable extra; the full unedited conversation is the export in `conversations/`. |
+| A08 | Claude (Opus 5.5) | 2026-10-20 | Readable chat transcript (prompts word for word, replies summarized) | None (evidence only) | Used only as a readable extra; the full unedited conversation is the share link in `conversations/chat-link.txt`.
 | A09 | Claude (Opus 5.5) | 2026-10-20 | Final complete README, after my pasted version had duplicated sections | `README.md` | Replaced the README with the complete version; checked the table and sections render correctly on GitHub. |
 
 ## Declaration

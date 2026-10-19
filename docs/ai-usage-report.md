@@ -69,3 +69,77 @@
   AI-assisted, but the content, personalization, project selection, and
   final code review are my own.
 - Used an automated screenshot-comparison approach (rather than just reading code or clicking around manually) to verify the site actually rendered correctly in both themes — this caught a real bug that code review alone had missed.
+
+
+---
+
+# Assignment 2 — AI Usage
+
+## Tools Used & Use Cases
+
+**Claude (Anthropic)** was used again, this time with a more step-by-step,
+collaborative approach: I asked it to suggest one change at a time, leave
+small parts for me to fill in, and explain each change so I could document it.
+
+| Use Case | How it was used |
+|---|---|
+| Planning | Claude reviewed my Assignment 1 repository and proposed a file-by-file plan (which files to check first and what each needed) before any code was written. |
+| Code generation | Suggested the HTML for the name form, the JavaScript for the personalized greeting and `localStorage` logic, the CSS for the name form and fade-in animation, and a refactor of the contact form validation. |
+| Guided coding | For several steps, Claude left blanks for me to complete, e.g. the `novalidate` attribute, the input placeholder, `display: none`, the error color, the animation offset (`8px`), the `input` event, and my own success message wording. |
+| Design decisions | I made the key choices myself: showing the name form only to first-time visitors with a "Not you? Change name" option, not auto-filling the contact form, and keeping the error messages simple. |
+| Testing | Claude tested the new JavaScript in a headless browser on a copy of my page before I applied it; I then tested everything manually in Chrome. |
+| Debugging | Used to diagnose bugs I noticed while testing (see below). |
+| Documentation | Drafted the updated README (including the criteria table, which I asked for) and technical documentation, which I reviewed and adjusted. |
+
+## Bugs Found During Assignment 2
+
+| Bug | How it was found | Fix |
+|---|---|---|
+| Contact form's Name error never appeared | I noticed it while testing. Claude traced it to a duplicate `id="name-error"` — **a mistake in the AI-suggested HTML** — which made the contact form write into the hidden hero form's error instead. | Renamed the hero error to `visitor-name-error`. |
+| Hero and button styles disappeared | My paste replaced existing CSS instead of adding to it. Claude compared my file with the last commit to find what was missing. | Restored the missing rules from the last commit. |
+| Save button looked "off" | I noticed it visually; Claude explained that `<button>` elements don't inherit fonts. | Added `font: inherit` to `.btn`. |
+| Footer year would break | Claude reviewed my pasted JavaScript and found a misplaced `}` that nested `initFooterYear()` inside another function. | Moved the closing brace. |
+
+## Benefits & Challenges
+
+**Benefits:**
+- Breaking the work into small steps (HTML → JS → CSS → messages → docs)
+  with one Git branch per feature kept every change easy to review and test.
+- Filling in parts of the code myself helped me understand *why* each line
+  is there instead of just pasting a finished file.
+- Having the AI test code before I applied it, and review my pasted files
+  afterwards, caught problems early.
+
+**Challenges:**
+- The AI introduced a real bug (the duplicate `id`), which showed me that
+  AI-suggested code still has to be tested in the full page, not just on
+  its own.
+- Copy-pasting large blocks caused my own mistakes (overwritten CSS, a
+  misplaced brace), so I started checking `git diff` before every commit.
+
+## Learning Outcomes
+
+- How to use `localStorage` to persist data across visits (`setItem`,
+  `getItem`, `removeItem`) and why a single constant for the key avoids typos.
+- Why an `id` must be unique: `getElementById` silently returns only the
+  first match.
+- How `display` rules override the HTML `hidden` attribute, and how to
+  prevent that with a `[hidden]` rule.
+- How to restart a CSS animation from JavaScript (remove class → force
+  reflow → add class), and how to respect `prefers-reduced-motion`.
+- Why `textContent` is safer than `innerHTML` for user input.
+- Writing clearer form feedback by separating "empty" and "invalid" errors.
+- Using feature branches and `git diff` as part of my normal workflow.
+
+## Responsible Use & Modifications
+
+- I reviewed every suggested change before applying it and tested each
+  feature manually in Chrome, in both light and dark themes.
+- I made the design and wording decisions myself, and wrote parts of the
+  code where the AI left blanks.
+- Bugs were caught through my own testing and fixed with AI help; the
+  AI's own mistake (duplicate `id`) is documented above rather than hidden.
+- Commits that included AI-assisted code are marked with an
+  `Assisted-by: Claude` line.
+- Prompts and screenshots from this assignment are kept in a separate AI
+  evidence folder outside the repository.

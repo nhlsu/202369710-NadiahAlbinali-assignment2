@@ -86,7 +86,7 @@ function playFadeIn(el) {
 function initNameForm() {
   const form = document.getElementById('name-form');
   const input = document.getElementById('visitor-name');
-  const errorEl = document.getElementById('name-error');
+  const errorEl = document.getElementById('visitor-name-error');
   const changeBtn = document.getElementById('change-name');
   if (!form || !input || !errorEl || !changeBtn) return;
 
@@ -154,7 +154,6 @@ function initMobileNav() {
     });
   });
 }
-
 /* ---------- 4. Contact form validation ---------- */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -165,32 +164,73 @@ function initContactForm() {
   const messageInput = document.getElementById('message');
   const successMsg = document.getElementById('form-success');
 
+  // Each field: what counts as valid, plus separate messages for empty vs invalid
+  const fields = [
+    {
+      input: nameInput,
+      isValid: (v) => v.length >= 2,
+      emptyMsg: 'Please enter your name.',
+      invalidMsg: 'Your name needs at least 2 characters.',
+    },
+    {
+      input: emailInput,
+      isValid: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+      emptyMsg: 'Please enter your email address.',
+      invalidMsg: 'That email looks incomplete. Try something like name@example.com.',
+    },
+    {
+      input: messageInput,
+      isValid: (v) => v.length >= 10,
+      emptyMsg: 'Please write a message before sending.',
+      invalidMsg: 'Your message is a bit short. Please write at least 10 characters.',
+    },
+  ];
+
+  // Clear a field's error as soon as the visitor starts fixing it
+  fields.forEach(({ input }) => {
+    input.addEventListener('input', () => clearFieldError(input));
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     successMsg.textContent = '';
 
-    const isNameValid = validateField(nameInput, (v) => v.trim().length >= 2,
-      'Please enter your name (2+ characters).');
+    const results = fields.map(validateField);
+    const firstInvalid = fields.find((field, i) => !results[i]);
 
-    const isEmailValid = validateField(emailInput, (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-      'Please enter a valid email address.');
-
-    const isMessageValid = validateField(messageInput, (v) => v.trim().length >= 10,
-      'Message should be at least 10 characters.');
-
-    if (isNameValid && isEmailValid && isMessageValid) {
-      // No backend: simulate a successful submission
-      successMsg.textContent = `Thanks, ${nameInput.value.trim()}! Your message has been noted (no backend is connected yet).`;
-      form.reset();
+    if (firstInvalid) {
+      firstInvalid.input.focus();
+      return;
     }
+
+    const name = nameInput.value.trim();
+    successMsg.textContent = `Thanks, ${name}! Your message has been received. (This demo form isn’t connected to email yet.)`;
+    playFadeIn(successMsg);
+    form.reset();
   });
 
-  function validateField(input, isValid, message) {
+  // Checks one field and shows the right message (empty vs invalid)
+  function validateField({ input, isValid, emptyMsg, invalidMsg }) {
+    const value = input.value.trim();
+    let message = '';
+
+    if (value === '') {
+      message = emptyMsg;
+    } else if (!isValid(value)) {
+      message = invalidMsg;
+    }
+
     const errorEl = document.getElementById(`${input.id}-error`);
-    const valid = isValid(input.value);
-    input.classList.toggle('invalid', !valid);
-    errorEl.textContent = valid ? '' : message;
-    return valid;
+    input.classList.toggle('invalid', message !== '');
+    errorEl.textContent = message;
+    if (message) playFadeIn(errorEl);
+
+    return message === '';
+  }
+
+  function clearFieldError(input) {
+    input.classList.remove('invalid');
+    document.getElementById(`${input.id}-error`).textContent = '';
   }
 }
 

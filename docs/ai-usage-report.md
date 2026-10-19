@@ -143,3 +143,15 @@ small parts for me to fill in, and explain each change so I could document it.
   `Assisted-by: Claude` line.
 - Prompts and screenshots from this assignment are kept in a separate AI
   evidence folder outside the repository.
+
+## Declaration
+
+I declare that this report and the attached evidence document all of my AI
+use in this assignment, with complete and unedited conversations, and that
+I understand and can explain all the code I submitted. I understand that
+undeclared AI use or a false declaration will be treated as plagiarism
+according to KFUPM regulations.
+
+**Name:** Nadiah Albinali
+**Student ID:** 202369710
+**Date:** 20 October 2026

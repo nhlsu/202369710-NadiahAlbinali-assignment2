@@ -2,14 +2,15 @@
    Nadiah Albinali — Portfolio Script
    Features:
    1. Dark / light theme toggle (persisted in localStorage)
-   2. Time-of-day greeting message
+   2. Personalized greeting (time of day + visitor name saved in localStorage)
    3. Smooth scrolling + mobile nav toggle
    4. Contact form validation (client-side only, no backend)
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
-  initGreeting();
+  renderGreeting();
+  initNameForm();
   initMobileNav();
   initContactForm();
   initFooterYear();
@@ -46,27 +47,94 @@ function initThemeToggle() {
   }
 }
 
-/* ---------- 2. Time-of-day greeting ---------- */
-function initGreeting() {
+/* ---------- 2. Greeting (time of day + saved visitor name) ---------- */
+const NAME_KEY = 'visitorName';
+
+// Returns the time-based part of the greeting
+function getTimeGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 5) return 'Welcome, night owl';
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
+}
+
+// Writes the greeting, adding the visitor's name if one is saved
+function renderGreeting() {
   const greetingEl = document.getElementById('greeting');
   if (!greetingEl) return;
 
-  const hour = new Date().getHours();
-  let greeting;
+  const name = localStorage.getItem(NAME_KEY);
+  const timeGreeting = getTimeGreeting();
 
-  if (hour < 5) {
-    greeting = 'Welcome, night owl';
-  } else if (hour < 12) {
-    greeting = 'Good morning';
-  } else if (hour < 17) {
-    greeting = 'Good afternoon';
-  } else {
-    greeting = 'Good evening';
-  }
+  greetingEl.textContent = name
+    ? `${timeGreeting}, ${name}! Welcome to my portfolio.`
+    : `${timeGreeting}! Welcome to my portfolio.`;
 
-  greetingEl.textContent = `${greeting}, Welcome to my portfolio!`;
+  playFadeIn(greetingEl);
 }
 
+// Restarts the fade-in animation on an element
+function playFadeIn(el) {
+  el.classList.remove('fade-in');
+  void el.offsetWidth; // forces the browser to notice the removal
+  el.classList.add('fade-in');
+}
+
+/* ---------- 2b. Name form (first-time visitors) ---------- */
+function initNameForm() {
+  const form = document.getElementById('name-form');
+  const input = document.getElementById('visitor-name');
+  const errorEl = document.getElementById('name-error');
+  const changeBtn = document.getElementById('change-name');
+  if (!form || !input || !errorEl || !changeBtn) return;
+
+  updateNameUI();
+
+  // Handles both clicking Save and pressing Enter in the input
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = input.value.trim();
+
+    if (name === '') {
+      showError('You haven’t entered a name yet. Please type your name and click Save.');
+      return;
+    }
+
+    localStorage.setItem(NAME_KEY, name);
+    clearError();
+    updateNameUI();
+    renderGreeting();
+  });
+
+  changeBtn.addEventListener('click', () => {
+    localStorage.removeItem(NAME_KEY);
+    input.value = '';
+    clearError();
+    updateNameUI();
+    renderGreeting();
+    input.focus();
+  });
+
+  // Shows the form OR the "Change name" button, depending on whether a name is saved
+  function updateNameUI() {
+    const hasName = Boolean(localStorage.getItem(NAME_KEY));
+    form.hidden = hasName;
+    changeBtn.hidden = !hasName;
+  }
+
+  function showError(message) {
+    errorEl.textContent = message;
+    input.classList.add('invalid');
+    playFadeIn(errorEl);
+  }
+
+  function clearError() {
+    errorEl.textContent = '';
+    input.classList.remove('invalid');
+  }
+}
 /* ---------- 3. Mobile nav toggle + smooth scroll close ---------- */
 function initMobileNav() {
   const navToggle = document.getElementById('nav-toggle');
